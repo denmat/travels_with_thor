@@ -10,8 +10,9 @@ require 'utils'
 # load in our lib path for the next require for the general libexecs
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "../libexec")))
 require 'ntp_servers'
+require 'git'
 
-class Acxcmd < Thor
+class Runcmd < Thor
   
   desc "mount_nfs_shares INSTANCE", 'mount nfs shares on INSTANCE'
   def mount_nfs_shares 
@@ -27,6 +28,9 @@ class Acxcmd < Thor
     ntp_servers(servers)
   end
 
+  desc "remote subcommand [repository]..", 'git remote <subcommand> alias'
+  subcommand "remote", Git::Remote
+
 end
  
-Acxcmd.start(ARGV)
+Runcmd.start(ARGV)
