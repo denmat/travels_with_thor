@@ -1,4 +1,5 @@
-module Git
+module GitCLI
+
   class Remote < Thor
     desc "add <repository> [<refspec>...]", "do a git pull from a repository into the cwd"
     def add(repository, *refspec)
@@ -7,4 +8,10 @@ module Git
       puts "git remote add #{repo}"
     end
   end
+
+  class Git < Thor
+    desc "remote SUBCOMMAND ...ARGS", "manage set of tracked repositories"
+    subcommand 'remote', Remote
+  end
+  
 end

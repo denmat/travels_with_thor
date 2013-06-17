@@ -10,7 +10,7 @@ require 'utils'
 # load in our lib path for the next require for the general libexecs
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "../libexec")))
 require 'ntp_servers'
-require 'git'
+require 'gitcli'
 
 class Runcmd < Thor
   
@@ -28,9 +28,7 @@ class Runcmd < Thor
     ntp_servers(servers)
   end
 
-  desc "remote subcommand [repository]..", 'git remote <subcommand> alias'
-  subcommand "remote", Git::Remote
-
+   register(GitCLI::Git, 'git', 'git <command>', 'git tools' )
 end
  
 Runcmd.start(ARGV)
