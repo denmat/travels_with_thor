@@ -1,6 +1,7 @@
 module Orders
 
   class Asequence < Thor
+    include Thor::Actions
 
     desc "mefirst", "number 1"
     method_options :verbose => :boolean, :aliases => '-v'
@@ -14,16 +15,20 @@ module Orders
     method_options :verbose => :boolean, :aliases => '-v'
     def mesecond
       puts "I'm second"
-      invoke :methird 
+      if yes?("Give me an answer (yes/no): ", :red)
+        invoke :methird 
+      end
     end
 
     desc "methird", "number 3"
     method_options :verbose => :boolean, :aliases => '-v'
+    method_options :afile => :string
     def methird
       say "I'm last"
-      set_color "I'm in red", :red
+      say "I'm in green", :green
+      puts "this is a file #{options[:afile]}"
     end
-  end
+  end 
 
   class Bsequence < Thor::Group
     desc "B 1"
