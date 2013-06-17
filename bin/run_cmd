@@ -11,9 +11,11 @@ require 'utils'
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "../libexec")))
 require 'ntp_servers'
 require 'gitcli'
+require 'orders'
 
 class Runcmd < Thor
   
+
   desc "mount_nfs_shares INSTANCE", 'mount nfs shares on INSTANCE'
   def mount_nfs_shares 
     servers = Utils::Lookups.hiera_lookup('primary_nas',nil)
@@ -29,6 +31,8 @@ class Runcmd < Thor
   end
 
    register(GitCLI::Git, 'git', 'git <command>', 'git tools' )
+   register(Orders::Asequence, 'seq', 'seq', 'seq of task')
+   register(Orders::Bsequence, 'Bseq', 'Bseq', 'Bseq of task')
 end
  
 Runcmd.start(ARGV)
