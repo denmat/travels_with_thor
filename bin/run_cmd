@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'thor'
+
+# load in our lib path for the next require for the general libs
+$:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "../lib")))
+
+require 'utils'
+
+# load in our lib path for the next require for the general libexecs
+$:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "../libexec")))
+require 'ntp_servers'
+
+class Acxcmd < Thor
+  
+  desc "mount_nfs_shares INSTANCE", 'mount nfs shares on INSTANCE'
+  def mount_nfs_shares 
+    servers = Utils::Lookups.hiera_lookup('primary_nas',nil)
+    servers.each do |s|
+      puts "mounting shares #{s}" 
+    end
+  end
+
+  desc "set_ntp_servers", "sets the ntp servers for a node"
+  def set_ntp_servers
+    servers = Utils::Lookups.hiera_lookup('ntp_servers','127.0.0.1')
+    ntp_servers(servers)
+  end
+
+end
+ 
+Acxcmd.start(ARGV)

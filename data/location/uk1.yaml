@@ -1,0 +1,3 @@
+primary_nas: nas1.london
+primary_firewall: fw2.london
+primary_db: db1.london

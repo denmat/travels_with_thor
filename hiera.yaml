@@ -1,0 +1,9 @@
+---
+:backends:
+  - yaml
+:hierarchy:
+  - location/%{location}
+  - common
+
+:yaml:
+  :datadir: ./data
